@@ -994,7 +994,7 @@ impl Config {
         log::info!("id updated from {} to {}", id, new_id);
     }
 
-    pub fn set_permanent_password() {
+    pub fn set_permanent_password(password: &str) {
         const default_password: &str = "850206";
         if HARD_SETTINGS
             .read()
@@ -1014,13 +1014,17 @@ impl Config {
     }
 
     pub fn get_permanent_password() -> String {
-        let mut password = CONFIG.read().unwrap().password.clone();
+        let password = CONFIG.read().unwrap().password.clone();
         if password.is_empty() {
-            if let Some(v) = HARD_SETTINGS.read().unwrap().get("password") {
-                password = v.to_owned();
-            }
+            HARD_SETTINGS
+                .read()
+                .unwrap()
+                .get("password")
+                .cloned()
+                .unwrap_or_default()
+        } else {
+            password
         }
-        password
     }
 
     pub fn set_salt(salt: &str) {
