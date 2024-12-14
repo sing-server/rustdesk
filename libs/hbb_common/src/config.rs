@@ -2243,7 +2243,7 @@ pub mod keys {
 
     // buildin options
     pub const OPTION_DISPLAY_NAME: &str = "display-name";
-    pub const OPTION_DISABLE_UDP: &str = "disable-udp";
+    pub const OPTION_DISABLE_UDP: &str = "enable-udp";
     pub const OPTION_PRESET_USERNAME: &str = "preset-user-name";
     pub const OPTION_PRESET_STRATEGY_NAME: &str = "preset-strategy-name";
     pub const OPTION_REMOVE_PRESET_PASSWORD_WARNING: &str = "remove-preset-password-warning";
