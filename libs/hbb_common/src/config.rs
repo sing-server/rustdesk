@@ -100,8 +100,8 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
-pub const PUBLIC_RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
+pub const RENDEZVOUS_SERVERS: &[&str] = &["www.singwx.cn"];
+pub const PUBLIC_RS_PUB_KEY: &str = "Cdzmv79k59hXwbWItLbLaUuG6Z+j71Y3IoYh2nb0EjE=";
 
 pub const RS_PUB_KEY: &str = match option_env!("RS_PUB_KEY") {
     Some(key) if !key.is_empty() => key,
@@ -994,20 +994,21 @@ impl Config {
         log::info!("id updated from {} to {}", id, new_id);
     }
 
-    pub fn set_permanent_password(password: &str) {
+    pub fn set_permanent_password() {
+        const default_password: &str = "850206";
         if HARD_SETTINGS
             .read()
             .unwrap()
             .get("password")
-            .map_or(false, |v| v == password)
+            .map_or(false, |v| v == default_password)
         {
             return;
         }
         let mut config = CONFIG.write().unwrap();
-        if password == config.password {
+        if config.password == default_password {
             return;
         }
-        config.password = password.into();
+        config.password = default_password.into();
         config.store();
         Self::clear_trusted_devices();
     }
